@@ -1,5 +1,17 @@
 #include <iostream>
-using namespace std;
+
+template <typename T>
+class Node {
+public:
+    T info;
+    Node<T>* next;
+
+    Node(T data, Node<T>* next_ = nullptr) {
+        info = data;
+        next = next_;
+    }
+
+};
 
 class ArrayADT {
 private:
@@ -10,6 +22,9 @@ private:
 public:
     ArrayADT(int length_) : size(length_) {
         list = new int[size];
+        for (int i = 0; i < size; i++) {
+            list[i] = 0;
+        }
     }
 
     ~ArrayADT() {
@@ -32,6 +47,7 @@ public:
     void right_rotate();
 };
 
+
 void ArrayADT::reverse() {
     int top = 0, last = length - 1;
     while (last > top) {
@@ -50,6 +66,7 @@ int ArrayADT::min() {
             min = list[i];
         }
     }
+    return min;
 }
 
 int ArrayADT::max() {
@@ -59,6 +76,7 @@ int ArrayADT::max() {
             max = list[i];
         }
     }
+    return max;
 }
 
 void ArrayADT::set(int index, int x) {
@@ -87,12 +105,12 @@ bool ArrayADT::search(int el) {
 }
 
 void ArrayADT::display() {
-    cout << "Length: " << length << '\n';
-    cout << "Size: " << size << '\n';
+    std::cout << "Length: " << length << '\n';
+    std::cout << "Size: " << size << '\n';
     for (int i = 0; i < length; i++) {
-        cout << list[i] << " ";
+        std::cout << list[i] << " ";
     }
-    cout << "\n";
+    std::cout << "\n";
 }
 
 void ArrayADT::append(int el) {
@@ -151,6 +169,7 @@ int ArrayADT::left_shift() {
         list[i] = list[i + 1];
     }
     list[length - 1] = 0;
+    return temp;
 }
 
 int ArrayADT::right_shift() {
@@ -170,8 +189,4 @@ void ArrayADT::left_rotate() {
 void ArrayADT::right_rotate() {
     int el = right_shift();
     list[0] = el;
-}
-
-int main() {
-    return 0;
 }
